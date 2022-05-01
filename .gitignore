@@ -1,0 +1,12 @@
+# Rust and Trunk
+target/
+dist/
+
+# Nix and Direnv
+result/
+.direnv/
+
+# Miscellaneous
+.DS_STORE
+.idea/
+.vscode/
