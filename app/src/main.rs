@@ -3,7 +3,6 @@
 
 use bevy::prelude::{App, ClearColor, Color, Msaa, WindowDescriptor};
 use bevy::DefaultPlugins;
-use bevy_egui::EguiPlugin;
 use timejumper::GamePlugin;
 
 fn main() {
@@ -17,7 +16,6 @@ fn main() {
             ..Default::default()
         })
         .add_plugins(DefaultPlugins)
-        .add_plugin(EguiPlugin)
         .add_plugin(GamePlugin)
         .run();
 }

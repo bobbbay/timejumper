@@ -15,6 +15,7 @@ impl Plugin for PlayerPlugin {
         app.add_system_set(
             SystemSet::on_enter(GameState::Playing)
                 .with_system(spawn_player)
+                .with_system(spawn_view)
                 .with_system(spawn_camera),
         )
         .add_system_set(SystemSet::on_update(GameState::Playing).with_system(move_player));
@@ -23,6 +24,25 @@ impl Plugin for PlayerPlugin {
 
 fn spawn_camera(mut commands: Commands) {
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
+}
+
+fn spawn_view(
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+) {
+    commands.spawn_bundle(PbrBundle {
+        mesh: meshes.add(Mesh::from(shape::Plane { size: 5.0 })),
+        material: materials.add(Color::rgb(0.3, 0.5, 0.9).into()),
+        ..default()
+    });
+
+    commands.spawn_bundle(PbrBundle {
+        mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
+        material: materials.add(Color::rgb(0.8, 0.7, 0.6).into()),
+        transform: Transform::from_xyz(0.0, 0.5, 0.0),
+        ..default()
+    });
 }
 
 fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>) {
